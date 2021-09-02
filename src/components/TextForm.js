@@ -7,11 +7,42 @@ export default function TextForm(props) {
         let newText = text.toUpperCase();
         setText(newText);
     }
+
     const handleLoClick = () => {
         // console.log("Uppercase was clicked");
         let newText = text.toLowerCase();
         setText(newText);
     }
+
+    const handleClearClick = () => {
+        let newText = '';
+        setText(newText);
+    }
+
+    const handleAltCaseClick = () => {
+        var alternateCase = function (s) {
+            var chars = s.toLowerCase().split("");
+            for (var i = 0; i < chars.length; i += 2) {
+              chars[i] = chars[i].toUpperCase();
+            }
+            return chars.join("");
+          };
+        let newText = alternateCase(text);
+        setText(newText);
+    }
+
+    const handleCopyClick = () => {
+        navigator.clipboard.writeText(text);
+    }
+
+    const handleTitleCase = () => {
+        let newText = text.split(" ").map((currentValue) => {
+            let newText = currentValue[0].toUpperCase() + currentValue.slice(1);
+            return newText;
+        });
+        setText(newText.join(" "));
+    }
+
     const handleOnChange = (event) => {
         // console.log("On Change");
         setText(event.target.value);
@@ -22,10 +53,15 @@ export default function TextForm(props) {
         <div className="container">
             <h1>{props.heading}</h1>
             <div className="mb-3">
-                <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                <textarea placeholder="Your text goes here" className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
             </div>
-            <button className="btn btn-primary mx-2" onClick={handleUpClick} >Convert to Uppercase</button>
-            <button className="btn btn-primary mx-2" onClick={handleLoClick} >Convert to Lowercase</button>
+            <button className="btn btn-primary mx-1" onClick={handleUpClick} >Convert to Uppercase</button>
+            <button className="btn btn-secondary mx-1" onClick={handleLoClick} >Convert to Lowercase</button>
+            <button className="btn btn-warning mx-1" onClick={handleAltCaseClick} >Convert to Alternate Case</button>
+            <button className="btn btn-info mx-1" onClick={handleTitleCase} >Convert to Title Case</button>
+            <button className="btn btn-danger mx-1" onClick={handleClearClick} >Clear Text</button>
+            <button className="btn btn-success mx-1" onClick={handleCopyClick} >Copy Text</button>
+            
         </div>
         <hr/>
         <div className="container my-3">
