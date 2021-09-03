@@ -6,17 +6,20 @@ export default function TextForm(props) {
         // console.log("Uppercase was clicked");
         let newText = text.toUpperCase();
         setText(newText);
+        props.showAlert("Converted to uppercase!", "success");
     }
 
     const handleLoClick = () => {
         // console.log("Uppercase was clicked");
         let newText = text.toLowerCase();
         setText(newText);
+        props.showAlert("Converted to lowercase!", "success");
     }
 
     const handleClearClick = () => {
         let newText = '';
         setText(newText);
+        props.showAlert("Text Cleared!", "success");
     }
 
     const handleAltCaseClick = () => {
@@ -29,10 +32,12 @@ export default function TextForm(props) {
           };
         let newText = alternateCase(text);
         setText(newText);
+        props.showAlert("Converted to alternate case!", "success");
     }
 
     const handleCopyClick = () => {
         navigator.clipboard.writeText(text);
+        props.showAlert("Text Copied!", "success");
     }
 
     const handleTitleCase = () => {
@@ -41,10 +46,10 @@ export default function TextForm(props) {
             return newText;
         });
         setText(newText.join(" "));
+        props.showAlert("Converted to titlecase!", "success")
     }
 
     const handleOnChange = (event) => {
-        // console.log("On Change");
         setText(event.target.value);
     }
     const [text, setText] = useState('');    
